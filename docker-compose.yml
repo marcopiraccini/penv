@@ -3,7 +3,7 @@ services:
   myenv:
     build: .
     tty: true
-
+    hostname: myenv
     volumes:
       -  "/var/run/docker.sock:/var/run/docker.sock"
       -  "~/workspaces:/opt/workspaces"

@@ -1,3 +1,5 @@
+# zsh startup
+
 if [[ "$SSH_CONNECTION" != "" && "$MY_SSH_CONNECTION" != "yes" ]]; then
     while true; do
         echo -n "Do you want to attach to a tmux session? [y/n]"
@@ -12,5 +14,5 @@ fi
 
 # Add the host private key link
 ln -s /run/secrets/host_ssh_key ~/.ssh/id_rsa 2> /dev/null
-eval `ssh-agent -s`
-ssh-add ~/.ssh/id_rsa
+eval `ssh-agent -s` 2> /dev/null
+ssh-add 2> /dev/null

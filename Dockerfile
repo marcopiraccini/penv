@@ -127,10 +127,6 @@ RUN sudo apt-get update
 RUN sudo apt-get install -y docker-ce docker-ce-cli containerd.io
 RUN sudo usermod -aG docker $USER
 
-# Neovim
-RUN sudo add-apt-repository ppa:neovim-ppa/stable
-RUN sudo apt-get update && sudo apt-get install -y neovim
-
 # Atom
 ENV ATOM_VERSION "v1.40.0"
 RUN curl -L https://github.com/atom/atom/releases/download/${ATOM_VERSION}/atom-amd64.deb > /tmp/atom.deb
@@ -140,12 +136,27 @@ ADD ./atom/atom-packages-list.txt $USER_HOME
 RUN apm install --packages-file $USER_HOME/atom-packages-list.txt
 RUN sudo rm $USER_HOME/atom-packages-list.txt
 
-# oh_my_zsh
-RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+# Neovim + plug
+RUN sudo add-apt-repository ppa:neovim-ppa/stable
+RUN sudo apt-get update && sudo apt-get install -y neovim
+RUN curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-# Copy all configs
+# NVM and node
+RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash \
+    && export NVM_DIR="$HOME/.nvm" \
+    && [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+RUN /bin/bash -c "source ~/.nvm/nvm.sh; nvm install 10; nvm use 10"
+
+# oh_my_zsh + spaceship theme
+# NOTE: we migth want to move this outside the base image and setup when creating
+# the container.
+RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+RUN git clone https://github.com/denysdovhan/spaceship-prompt.git ~/.oh-my-zsh/custom/themes/spaceship-prompt
+RUN ln -s ~/.oh-my-zsh/custom/themes/spaceship-prompt/spaceship.zsh-theme ~/.oh-my-zsh/custom/themes/spaceship.zsh-theme
+
+# Copy all config
 COPY ./zsh/* $USER_HOME/
-COPY ./vim/init.vim $USER_HOME/.config/vim/
+COPY ./vim/init.vim $USER_HOME/.config/nvim/
 COPY ./tmux/.tmux.conf $USER_HOME/.tmux.conf
 COPY ./atom/config.cson $USER_HOME/.atom/
 
@@ -155,7 +166,6 @@ RUN sudo chown -R $USER:$USER $USER_HOME
 # Setup SSH access
 COPY ./temp/authorized_keys /tmp/your_key.pub
 RUN cat /tmp/your_key.pub >> $USER_HOME/.ssh/authorized_keys && sudo rm -f /tmp/your_key.pub
-# RUN chown -R $USER:$USER $USER_HOME/.ssh/authorized_keys
 RUN chmod 700 $USER_HOME/.ssh
 RUN chmod 600 $USER_HOME/.ssh/authorized_keys
 
