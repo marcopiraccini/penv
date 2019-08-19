@@ -7,6 +7,16 @@ set fileencoding=utf-8  " The encoding written to file.
 syntax on " Enable syntax highlight
 
 """""""""""""""""""""""""""""""""""""""""""""""
+" => Install plug and plugins if missing
+"""""""""""""""""""""""""""""""""""""""""""""""
+
+if empty(glob('~/.config/nvim/autoload/plug.vim'))
+  silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall
+endif
+
+"""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugins List
 """""""""""""""""""""""""""""""""""""""""""""""
 
@@ -56,7 +66,7 @@ let g:NERDTreeQuitOnOpen=0
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard'] " only show files that are not ignored by git
 
 " syntastic eslint checks
-let g:neomake_javascript_enabled_makers=['eslint']" 
+let g:neomake_javascript_enabled_makers=['eslint']"
 
 " enable highlight for JSDocs
 let g:javascript_plugin_jsdoc = 1
@@ -126,10 +136,10 @@ set tabstop=4
 
 " Auto indent
 " Copy the indentation from the previous line when starting a new line
-set ai 
+set ai
 
 " Smart indent
-" Automatically inserts one extra level of indentation in some cases, and works for C-like files 
+" Automatically inserts one extra level of indentation in some cases, and works for C-like files
 set si
 
 set ttimeoutlen=100

@@ -139,7 +139,6 @@ RUN sudo rm $USER_HOME/atom-packages-list.txt
 # Neovim + plug
 RUN sudo add-apt-repository ppa:neovim-ppa/stable
 RUN sudo apt-get update && sudo apt-get install -y neovim
-RUN curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 # NVM and node
 RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash \
@@ -153,6 +152,7 @@ RUN /bin/bash -c "source ~/.nvm/nvm.sh; nvm install 10; nvm use 10"
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 RUN git clone https://github.com/denysdovhan/spaceship-prompt.git ~/.oh-my-zsh/custom/themes/spaceship-prompt
 RUN ln -s ~/.oh-my-zsh/custom/themes/spaceship-prompt/spaceship.zsh-theme ~/.oh-my-zsh/custom/themes/spaceship.zsh-theme
+
 
 # Copy all config
 COPY ./zsh/* $USER_HOME/
