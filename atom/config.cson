@@ -1,0 +1,55 @@
+"*":
+  "atom-easy-jsdoc":
+    beta: true
+  "atom-ide-ui":
+    "atom-ide-outline-view":
+      nameOnly: true
+    use:
+      "atom-ide-diagnostics": "never"
+      "atom-ide-diagnostics-ui": "never"
+  "autoupdate-packages":
+    lastUpdateTimestamp: 1560754448505
+  "bracket-matcher":
+    autocompleteBrackets: false
+  core:
+    disabledPackages: [
+      "language-gfm"
+      "jshint"
+      "es-navigation"
+      "node-resolver"
+      "atom-ethereum-interface"
+      "language-clojure"
+      "atom-quokka"
+      "linter-rust"
+      "etheratom"
+      "webbox-color"
+      "atom-file-icons"
+    ]
+    telemetryConsent: "limited"
+    themes: [
+      "atom-light-ui"
+      "atom-light-syntax"
+    ]
+  editor:
+    fontSize: 16
+    invisibles: {}
+  "exception-reporting":
+    userId: "5ef08686-062d-469a-a85f-e455115644a0"
+  "linter-ui-default":
+    panelHeight: 147
+  "markdown-preview":
+    breakOnSingleNewline: true
+  minimap:
+    plugins:
+      bookmarks: true
+      bookmarksDecorationsZIndex: 0
+      "git-diff": true
+      "git-diffDecorationsZIndex": 0
+      "minimap-autohide": true
+      "minimap-autohideDecorationsZIndex": 0
+  "tabs-to-spaces": {}
+  "tree-view":
+    hideVcsIgnoredFiles: true
+  "tree-view-git-status":
+    gitFlow:
+      enabled: false

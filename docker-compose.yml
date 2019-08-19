@@ -1,0 +1,33 @@
+version: "3.7"
+services:
+  myenv:
+    build: .
+    tty: true
+
+    volumes:
+      -  "/var/run/docker.sock:/var/run/docker.sock"
+      -  "~/workspaces:/opt/workspaces"
+
+    ports:
+      - "22"
+    restart: unless-stopped
+    networks:
+        - myenv-network
+    secrets:
+        - host_ssh_key
+
+volumes:
+  volume-name:
+    driver: local
+
+networks:
+    myenv-network:
+        driver: bridge
+        ipam:
+            driver: default
+            config:
+                - subnet: 172.30.80.0/24
+
+secrets:
+  host_ssh_key:
+    file: ~/.ssh/id_rsa
