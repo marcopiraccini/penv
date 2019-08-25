@@ -64,6 +64,10 @@ let g:NERDTreeQuitOnOpen=0
 
 " ctrlp
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard'] " only show files that are not ignored by git
+let g:ctrlp_prompt_mappings = {
+    \   'PrtCurRight()':   ['<right>'],
+    \   'PrtClearCache()': ['<F5>', '<C-l>'],
+    \ }
 
 " syntastic eslint checks
 let g:neomake_javascript_enabled_makers=['eslint']"
