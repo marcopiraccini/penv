@@ -107,7 +107,7 @@ RUN rm -f /etc/service/sshd/down
 RUN /etc/my_init.d/00_regen_ssh_host_keys.sh
 
 # We don't want to run as root even inside our container
-RUN groupadd -g $USER_GUID $USER
+RUN groupadd -o -g $USER_GUID $USER
 RUN useradd -rm -d $USER_HOME -s /usr/bin/zsh -g $USER_GUID -G sudo -u $USER_UID $USER -p '*'
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 RUN runuser -l $USER -c 'mkdir -p $USER_HOME/.ssh'
