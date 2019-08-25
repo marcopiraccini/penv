@@ -1,9 +1,9 @@
 version: "3.7"
 services:
-  myenv:
+  penv:
     build: .
     tty: true
-    hostname: myenv
+    hostname: penv
     volumes:
       -  "/var/run/docker.sock:/var/run/docker.sock"
       -  "~/workspaces:/opt/workspaces"
@@ -12,7 +12,7 @@ services:
       - "22"
     restart: unless-stopped
     networks:
-        - myenv-network
+        - penv-network
     secrets:
         - host_ssh_key
 
@@ -21,7 +21,7 @@ volumes:
     driver: local
 
 networks:
-    myenv-network:
+    penv-network:
         driver: bridge
         ipam:
             driver: default

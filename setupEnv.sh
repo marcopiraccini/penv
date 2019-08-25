@@ -1,17 +1,17 @@
-MYENV_DIR=~/.myenv
+PENV_DIR=~/.penv
 USER=`whoami`
 USER_UID=`id -u`
 USER_GUID=`id -g`
 SUDO=$(if docker info 2>&1 | grep "permission denied" >/dev/null; then echo "sudo -E"; fi)
 
-if [ ! -f $MYENV_DIR/authorized_keys/authorized_keys ]; then
-    mkdir -p $MYENV_DIR/authorized_keys
-    ssh-keygen -f $MYENV_DIR/myenv-key -t rsa -N ''
-    cp $MYENV_DIR/myenv-key.pub $MYENV_DIR/authorized_keys/authorized_keys
+if [ ! -f $PENV_DIR/authorized_keys/authorized_keys ]; then
+    mkdir -p $PENV_DIR/authorized_keys
+    ssh-keygen -f $PENV_DIR/penv-key -t rsa -N ''
+    cp $PENV_DIR/penv-key.pub $PENV_DIR/authorized_keys/authorized_keys
 fi
 
 mkdir -p temp
-cp $MYENV_DIR/authorized_keys/authorized_keys ./temp
+cp $PENV_DIR/authorized_keys/authorized_keys ./temp
 
 echo "Adding env for user $USER with UID $USER_UID and GUID $USER_GUID"
 
