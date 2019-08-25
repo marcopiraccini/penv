@@ -118,6 +118,7 @@ USER $USER
 # TMUX (built from source)
 ADD ./tmux/install_tmux.sh $USER_HOME
 RUN sudo $USER_HOME/install_tmux.sh && sudo rm -f $USER_HOME/install_tmux.sh
+RUN git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 # Docker
 RUN sudo apt-get update
@@ -128,7 +129,7 @@ RUN sudo apt-get install -y docker-ce docker-ce-cli containerd.io
 RUN sudo usermod -aG docker $USER
 
 # Atom
-ENV ATOM_VERSION "v1.40.0"
+ENV ATOM_VERSION "v1.40.1"
 RUN curl -L https://github.com/atom/atom/releases/download/${ATOM_VERSION}/atom-amd64.deb > /tmp/atom.deb
 RUN sudo dpkg -i /tmp/atom.deb
 RUN rm -f /tmp/atom.deb
@@ -136,7 +137,7 @@ ADD ./atom/atom-packages-list.txt $USER_HOME
 RUN apm install --packages-file $USER_HOME/atom-packages-list.txt
 RUN sudo rm $USER_HOME/atom-packages-list.txt
 
-# Neovim + plug
+# Neovim
 RUN sudo add-apt-repository ppa:neovim-ppa/stable
 RUN sudo apt-get update && sudo apt-get install -y neovim
 

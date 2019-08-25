@@ -1,5 +1,5 @@
 #!/bin/bash
-#title        :myenv.sh
+#title        :connEnv.sh
 #description  :Develop env docker-based
 #========================================================
 
@@ -11,4 +11,3 @@ port="$(echo "$socket" | cut -d':' -f2)"
 sshArgs="$@ -Y -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -p $port -i ~/.myenv/myenv-key"
 echo ssh $sshArgs localhost
 ssh $sshArgs localhost
-
