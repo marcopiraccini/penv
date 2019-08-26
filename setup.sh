@@ -18,3 +18,5 @@ echo "Adding env for user $USER with UID $USER_UID and GUID $USER_GUID"
 $SUDO docker-compose stop
 $SUDO docker-compose build --build-arg USER_ARG=$USER --build-arg USER_UID_ARG=$USER_UID --build-arg USER_GUID_ARG=$USER_GUID
 $SUDO docker-compose up -d --force-recreate
+
+rm -Rf ./temp
