@@ -10,3 +10,6 @@ export NVM_DIR="$HOME/.nvm"
 if type nvim > /dev/null 2>&1; then
   alias vim='nvim'
 fi
+
+# Rust
+export PATH="$HOME/.cargo/bin:$PATH"

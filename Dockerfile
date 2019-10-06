@@ -129,13 +129,13 @@ RUN sudo apt-get install -y docker-ce docker-ce-cli containerd.io
 RUN sudo usermod -aG docker $USER
 
 # Atom
-ENV ATOM_VERSION "v1.40.1"
-RUN curl -L https://github.com/atom/atom/releases/download/${ATOM_VERSION}/atom-amd64.deb > /tmp/atom.deb
-RUN sudo dpkg -i /tmp/atom.deb
-RUN rm -f /tmp/atom.deb
-ADD ./atom/atom-packages-list.txt $USER_HOME
-RUN apm install --packages-file $USER_HOME/atom-packages-list.txt
-RUN sudo rm $USER_HOME/atom-packages-list.txt
+# ENV ATOM_VERSION "v1.40.1"
+# RUN curl -L https://github.com/atom/atom/releases/download/${ATOM_VERSION}/atom-amd64.deb > /tmp/atom.deb
+# RUN sudo dpkg -i /tmp/atom.deb
+# RUN rm -f /tmp/atom.deb
+# ADD ./atom/atom-packages-list.txt $USER_HOME
+# RUN apm install --packages-file $USER_HOME/atom-packages-list.txt
+# RUN sudo rm $USER_HOME/atom-packages-list.txt
 
 # Neovim
 RUN sudo add-apt-repository ppa:neovim-ppa/stable
@@ -154,11 +154,17 @@ RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh
 RUN git clone https://github.com/denysdovhan/spaceship-prompt.git ~/.oh-my-zsh/custom/themes/spaceship-prompt
 RUN ln -s ~/.oh-my-zsh/custom/themes/spaceship-prompt/spaceship.zsh-theme ~/.oh-my-zsh/custom/themes/spaceship.zsh-theme
 
+# Rust and rustup
+RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
+RUN echo 'source $HOME/.cargo/env' >> $USER_HOME/.bashrc
+
+
 # Copy all config
 COPY ./zsh/* $USER_HOME/
 COPY ./vim/init.vim $USER_HOME/.config/nvim/
 COPY ./tmux/.tmux.conf $USER_HOME/.tmux.conf
-COPY ./atom/config.cson $USER_HOME/.atom/
+
+# t@github.com:jishi/node-sonos-http-api.gitCOPY ./atom/config.cson $USER_HOME/.atom/
 
 # Set correct ownership
 RUN sudo chown -R $USER:$USER $USER_HOME
